@@ -53,13 +53,33 @@ def check_validity2(text):
         return "Invalid text : Imbalanced brackets"
     
             
+invalid_count,valid_count =0,0
+def get_valid_invalid_text_count(obj_list):
+    global invalid_count,valid_count 
+    for obj in obj_list:
+        if type(obj) in [list,tuple,set,dict]:
+            get_valid_invalid_text_count(obj)
+        elif type(obj) == str:
+            if check_validity2(obj).startswith('Invalid text'):
+                invalid_count+=1
+            else:
+                valid_count+=1
+    return (valid_count,invalid_count)
+            
+   
 
-
-
+print(get_valid_invalid_text_count(['()', ['(>)>'], ['([](}){)', '(<(<>){}>)'],1,2,3.3,'amey',range(100),'((()))']))
+'''
 print(check_validity1('()'))
 print(check_validity2('(>)>'))
 print(check_validity1('([](}){)'))
 print(check_validity2(')('))
 print(check_validity1('(j)'))
-print(check_validity2('(<(<>){}>)'))              
+print(check_validity2('(<(<>){}>)'))    
+'''
+
+
+
+
+
             
